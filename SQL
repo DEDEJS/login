@@ -1,1 +1,0 @@
-CREATE TABLE `banco`.`login` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `nome` VARCHAR(20) CHARACTER SET armscii8 COLLATE armscii8_general_ci NOT NULL , `senha` VARCHAR(20) CHARACTER SET armscii8 COLLATE armscii8_general_ci NOT NULL , `email` VARCHAR(50) CHARACTER SET armscii8 COLLATE armscii8_general_ci NOT NULL , PRIMARY KEY (`id`(5))) ENGINE = MyISAM;
