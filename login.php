@@ -32,35 +32,31 @@ $email = $_POST['email'];
      echo "Nenhum resultado foi encontrado.";  
  }else{
   include_once"banco.php";
-  $sql = "SELECT nome,senha,email FROM login";
+  $sql = "SELECT * FROM login";
   $sql_query = mysqli_query($conecta,$sql);
   while($sql_linha = mysqli_fetch_array($sql_query)){
+  	$sql_id = $sql_linha['id'];
   	$sql_name = $sql_linha['nome'];
   	$sql_pass = $sql_linha['senha'];
   	$sql_email = $sql_linha['email'];
-      
-  }
-if($sql_name != $name && $sql_pass != $name){
-     echo "Nenhum resultado foi encontrado.";
-}else if($sql_email != $email){
-     echo "Nenhum resultado foi encontrado.";
-}else{
-	echo 'logado';
+     if($sql_name == $name){
+     	if(true){//
+     	   
+           header('location:logado.php');
 
-
-
-
-
-		
+     	}
+     }else{
+     $a = false;
+     }
+}//final while
+if($a == false){
+	echo "Nenhum resultado foi encontrado.";
 }
- }
- }else{echo "Preencha os campos restantes.";}
-
-
-
+}
+}//isset post['nome'] && isset post['email']
 }// final da função valida_input()
 
-}
+}// final class
 $class = new valida();
 ?>
 <!DOCTYPE HTML>
@@ -71,6 +67,8 @@ $class = new valida();
  </head>
 <body>
  <h3>Login</h3>
+<?php
+?>
 <?php
 echo $class->valida_input();
 ?>
