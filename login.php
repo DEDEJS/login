@@ -21,13 +21,11 @@ class valida{
 $name = $_POST['nome'];
 $email = $_POST['email'];
  if(strlen($name)<=0 && strlen($email)<=0){
- 	echo "Nenhum resultado foi encontrado.";
+  echo "Nenhum resultado foi encontrado.";
  }else if(strlen($name)>=21){
     echo "Nenhum resultado foi encontrado.";
- }else if(preg_match("/([0-9])/", $name)){
- 	echo "Nenhum resultado foi encontrado.";
- }else if(!preg_match("/([a-zA-Z])/", $name)){
-    echo "Nenhum resultado foi encontrado.";
+ }else if(!preg_match("/([0-9a-zA-Z])/", $name)){
+  echo "Nenhum resultado foi encontrado..";
  }else if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
      echo "Nenhum resultado foi encontrado.";  
  }else{
@@ -35,22 +33,26 @@ $email = $_POST['email'];
   $sql = "SELECT * FROM login";
   $sql_query = mysqli_query($conecta,$sql);
   while($sql_linha = mysqli_fetch_array($sql_query)){
-  	$sql_id = $sql_linha['id'];
-  	$sql_name = $sql_linha['nome'];
-  	$sql_pass = $sql_linha['senha'];
-  	$sql_email = $sql_linha['email'];
-     if($sql_name == $name){
-     	if(true){//
-     	   
-           header('location:logado.php');
-
-     	}
+    $sql_id = $sql_linha['id'];
+    $sql_name = $sql_linha['nome'];
+    $sql_pass = $sql_linha['senha'];
+    $sql_email = $sql_linha['email'];
+     if($sql_name != $name or $sql_pass != $name){
+      $valida_name = false;
      }else{
-     $a = false;
+      $valida_name = true;
+     }
+
+     if($sql_email != $email){
+      $valida_email = false;
+     }else{
+      $valida_email = true;
      }
 }//final while
-if($a == false){
-	echo "Nenhum resultado foi encontrado.";
+if($valida_name == false && $valida_email == false){
+  echo "Nenhum resultado foi encontrado.";
+}else{
+  header("location:logado.php");
 }
 }
 }//isset post['nome'] && isset post['email']
@@ -63,7 +65,7 @@ $class = new valida();
 <html lang="pt-br">
  <head>
   <meta charset="utf-8">
-  <title>Login</title>	
+  <title>Login</title>  
  </head>
 <body>
  <h3>Login</h3>
