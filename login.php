@@ -47,7 +47,7 @@ if (session_status() == PHP_SESSION_NONE) {
   ?>
 </div>
 <div> 
- <input type="email" name="Email" placeholder="Email"  value="">
+ <input type="email" name="Email" placeholder="Email"  value="<?php $valida -> ValueEmail(); ?>">
 </div>
 
 <div class="h3">
@@ -66,5 +66,9 @@ if (session_status() == PHP_SESSION_NONE) {
   <input type="submit" name="submit" value="Logar">
  </div>
 </form>
+<?php
+$valida -> Loga();
+
+?>
 </body>
 </html>
