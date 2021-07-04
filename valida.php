@@ -41,7 +41,7 @@ class valida{
               }else if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
                   echo "Email Inválido";
               }else{ 
-                 
+                 $this->Email = $email;
                  $this->ValidaEmail = true;
               }
           }
@@ -63,6 +63,7 @@ class valida{
               echo "Senha inválida";
          }
              else{
+                 $this->Senha = $senha;
                  $this->ValidaSenha = true;
              }
          }
@@ -78,6 +79,7 @@ class valida{
               return;
         }else{
             /* Valida no banco*/
+            echo $this->Senha;
         }
     }
 }

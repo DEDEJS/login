@@ -17,7 +17,7 @@
         border-radius:10px;
 
     }
-    input[type=email],input[type=password]{
+    input[type=email],input[type=password],input[type=text]{
         padding:1%;
         font-size:100%;
         border-radius:10px;
@@ -34,7 +34,7 @@
 	border:none;
     padding:1%;
     width:30%;
-    margin-top:1%;
+    margin-top:2%;
     margin-left:42%;
     margin-bottom:2% ;
     font-size:100%;
@@ -46,7 +46,7 @@
 
     }
     .login{
-        margin-left:55%;
+        margin-left:50%;
         margin-top:1%;
     }
     .h3{
