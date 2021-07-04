@@ -6,11 +6,25 @@ if (session_status() == PHP_SESSION_NONE) {
   }else{
    
   }
+  class Session{
+      /* Verifica Se O Usuário Esta Logado Ou Não */
+      public function UserEstado(){
+        $_SESSION['UserEstado'] = "off";
+        if(isset($_SESSION['UserEstado'])){
+           if($_SESSION['UserEstado'] == "on"){
+              echo "Usuário Logado";
+              die();
+           }
+        }
+    }
+  }
+
 class valida{
   private $Email;
   private $ValidaEmail;
   private $Senha;
   private $ValidaSenha;
+  private $conn;
     public function GetEmail(){
         if(isset($_POST['Email'])){
             $this->Email = $_POST['Email'];  
@@ -79,10 +93,23 @@ class valida{
               return;
         }else{
             /* Valida no banco*/
-            echo $this->Senha;
+            $email = $this->Email;
+            $senha = $this->Senha; 
+            try{
+                $conn = $this->conn = new PDO('mysql:host=localhost;test=um', "root", "root");
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          }catch(PDOException $error) {
+              echo 'ERROR: ' . $error->getMessage();
+          }
+         $email = FILTER_VAR($email,FILTER_SANITIZE_EMAIL);
+         $senha = FILTER_VAR($senha,FILTER_SANITIZE_SPECIAL_CHARS);
+         /**/ 
         }
     }
 }
+$session = new session();
+$session ->UserEstado();
+
 $valida = new valida();
 $valida -> GetEmail();
 $valida -> GetSenha();

@@ -27,7 +27,27 @@ if (session_status() == PHP_SESSION_NONE) {
   <link rel="stylesheet" type="text/css" href="css.css">
   <meta name="author" content="André Aparecido">
   <meta name="description" content="Logar,Login">
-
+  <script> 
+     function ShowPassword(){
+       $senha = document.getElementById('senha');
+       $button =  document.getElementById('button');
+       
+   if(button.onclick){
+     if($senha.type == "password"){
+      $senha.type = 'text';
+      $button.innerHTML = "Esconder Senha";
+      return false;
+     }
+      else {
+        $senha.type = 'password';
+        $button.innerHTML = "Mostrar Senha";
+        return false;
+     
+      }
+    return false;
+     }
+     }
+  </script>
  </head>
 <body>
  
@@ -59,27 +79,12 @@ if (session_status() == PHP_SESSION_NONE) {
   ?>
  </div>
  <div>
-  <input type="password" name="senha"  placeholder="Sua Senha" id="senha">
-  <button onclick="return ShowPassword();"  id='button'><p>Mostrar Senha</p></button>
+  <input type="password" name="senha"  placeholder="Sua Senha" id="senha" value="asss55">
+  <p onclick="return ShowPassword();"  id='button'>Mostrar Senha</p>
  </div>
-  <script> 
-     function ShowPassword(){
-       $senha = document.getElementById('senha');
-       $button =  document.getElementById('button');
-     if($senha.type == "password"){
-     $senha.type = 'text';
-      $button.innerHTML = "Esconder Senha";
-     }
-      else {
-        $senha.type = 'password';
-        $button.innerHTML = "Mostrar Senha";
-     
-      }
-    return false;
-     }
-  </script>
+ 
  <div>
-  <input type="submit" name="submit" value="Logar">
+  <input type="submit" name="submit" value="Logar" >
  </div>
 </form>
 <?php
