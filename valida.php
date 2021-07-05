@@ -1,13 +1,16 @@
 <?php
 ini_set('default_charset','UTF-8');
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-     // inicia
-  }else{
-   
-  }
+
   class Session{
       /* Verifica Se O Usuário Esta Logado Ou Não */
+      public function ValidaSession(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+             // inicia
+          }else{
+           
+          }
+      }
       public function UserEstado(){
         $_SESSION['UserEstado'] = "off";
         if(isset($_SESSION['UserEstado'])){
@@ -100,6 +103,11 @@ class valida{
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           }catch(PDOException $error) {
               echo 'ERROR: ' . $error->getMessage();
+              $Error = fopen("arquivo.txt", "a+");
+$Mensagem = "!!!!!! Error No SQL ". $error->getMessage()." !!";
+fwrite($Error,$Mensagem);
+fclose($Error);
+ /*Adicionar Hora,Data */
           }
          $email = FILTER_VAR($email,FILTER_SANITIZE_EMAIL);
          $senha = FILTER_VAR($senha,FILTER_SANITIZE_SPECIAL_CHARS);
@@ -109,6 +117,7 @@ class valida{
 }
 $session = new session();
 $session ->UserEstado();
+$session ->ValidaSession();
 
 $valida = new valida();
 $valida -> GetEmail();

@@ -11,12 +11,9 @@ Apache Version:Apache/2.4.43
 */
 ini_set('default_charset','UTF-8');
 include_once("valida.php");
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-   // inicia
-}else{
- 
-}
+$session ->ValidaSession();
+// esconde os erros error_reporting(0);
+
 ?>
 <!DOCTYPE HTML>
 <html lang="pt-br">
