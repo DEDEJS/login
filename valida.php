@@ -102,12 +102,13 @@ class valida{
                 $conn = $this->conn = new PDO('mysql:host=localhost;test=um', "root", "root");
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           }catch(PDOException $error) {
-              echo 'ERROR: ' . $error->getMessage();
-              $Error = fopen("arquivo.txt", "a+");
-$Mensagem = "!!!!!! Error No SQL ". $error->getMessage()." !!";
+            //  echo 'ERROR: ' . $error->getMessage();
+              $Error = fopen("arquivo.txt", "a+");//arquivo de erros do banco de dados
+              date_default_timezone_set('America/Sao_Paulo');
+
+$Mensagem = "!!!!!! Error No SQL ". $error->getMessage(). date('d/m/Y H:i');
 fwrite($Error,$Mensagem);
 fclose($Error);
- /*Adicionar Hora,Data */
           }
          $email = FILTER_VAR($email,FILTER_SANITIZE_EMAIL);
          $senha = FILTER_VAR($senha,FILTER_SANITIZE_SPECIAL_CHARS);
