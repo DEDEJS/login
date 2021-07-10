@@ -24,27 +24,8 @@ $session ->ValidaSession();
   <link rel="stylesheet" type="text/css" href="css.css">
   <meta name="author" content="André Aparecido">
   <meta name="description" content="Logar,Login">
-  <script> 
-     function ShowPassword(){
-       $senha = document.getElementById('senha');
-       $button =  document.getElementById('button');
-       
-   if(button.onclick){
-     if($senha.type == "password"){
-      $senha.type = 'text';
-      $button.innerHTML = "Esconder Senha";
-      return false;
-     }
-      else {
-        $senha.type = 'password';
-        $button.innerHTML = "Mostrar Senha";
-        return false;
-     
-      }
-    return false;
-     }
-     }
-  </script>
+  <script type="text/javascript" src="valida.js"></script>
+
  </head>
 <body>
  
@@ -78,6 +59,7 @@ $session ->ValidaSession();
  <div>
   <input type="password" name="senha"  placeholder="Sua Senha" id="senha" value="asss55">
   <p onclick="return ShowPassword();"  id='button'>Mostrar Senha</p>
+  <button>Esqueci A Senha</button>
  </div>
  
  <div>
@@ -85,7 +67,7 @@ $session ->ValidaSession();
  </div>
 </form>
 <?php
-$valida -> Loga();
+$valida -> Logar();
 
 ?>
 </body>

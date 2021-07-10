@@ -28,6 +28,9 @@ class valida{
   private $Senha;
   private $ValidaSenha;
   private $conn;
+
+  private $DBEMAIL;
+  private $DBSENHA;
     public function GetEmail(){
         if(isset($_POST['Email'])){
             $this->Email = $_POST['Email'];  
@@ -89,7 +92,7 @@ class valida{
         /* Valor que era dentro do input email */
         echo htmlspecialchars($this->Email);
     }
-    public function Loga(){
+    public function Logar(){
         if($this->ValidaEmail == false )  { 
               return;
         }else if($this->ValidaSenha == false){
@@ -99,20 +102,35 @@ class valida{
             $email = $this->Email;
             $senha = $this->Senha; 
             try{
-                $conn = $this->conn = new PDO('mysql:host=localhost;test=um', "root", "root");
+                $conn = $this->conn = new PDO('mysql:host=localhost;dbname=login-git', "root", "root");
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           }catch(PDOException $error) {
             //  echo 'ERROR: ' . $error->getMessage();
               $Error = fopen("arquivo.txt", "a+");//arquivo de erros do banco de dados
               date_default_timezone_set('America/Sao_Paulo');
 
-$Mensagem = "!!!!!! Error No SQL ". $error->getMessage(). date('d/m/Y H:i');
+$Mensagem = "!!!!!! Error No SQL ". $error->getMessage(). date('d/m/Y H:i')." -----" ;
 fwrite($Error,$Mensagem);
 fclose($Error);
           }
          $email = FILTER_VAR($email,FILTER_SANITIZE_EMAIL);
          $senha = FILTER_VAR($senha,FILTER_SANITIZE_SPECIAL_CHARS);
-         /**/ 
+         
+         $Select = $conn->query("SELECT id,email,senha FROM dados");
+
+
+while ($Tabela = $Select->fetch(PDO::FETCH_ASSOC)) {
+        if($email == $Tabela['email']){
+          $this->DBEMAIL = true;
+        }else{
+          $this->DBEMAIL = false;
+        }
+        if($senha == $Tabela['senha']){
+         $this->DBSENHA = true;
+        }else{
+            $this->DBSENHA = false;
+        }
+}
         }
     }
 }
