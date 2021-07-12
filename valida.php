@@ -29,8 +29,7 @@ class valida{
   private $ValidaSenha;
   private $conn;
 
-  private $DBEMAIL;
-  private $DBSENHA;
+  private $ValidaDados;
     public function GetEmail(){
         if(isset($_POST['Email'])){
             $this->Email = $_POST['Email'];  
@@ -92,7 +91,7 @@ class valida{
         /* Valor que era dentro do input email */
         echo htmlspecialchars($this->Email);
     }
-    public function Logar(){
+    public function ValidaLogar(){
         if($this->ValidaEmail == false )  { 
               return;
         }else if($this->ValidaSenha == false){
@@ -118,22 +117,33 @@ fclose($Error);
          
          $Select = $conn->query("SELECT id,email,senha FROM dados");
 
-
 while ($Tabela = $Select->fetch(PDO::FETCH_ASSOC)) {
-        if($email == $Tabela['email']){
-          $this->DBEMAIL = true;
-        }else{
-          $this->DBEMAIL = false;
-        }
-        if($senha == $Tabela['senha']){
-         $this->DBSENHA = true;
-        }else{
-            $this->DBSENHA = false;
-        }
+  $IdTabela = $Tabela['id'];
+  $emailTabela = $Tabela['email'];
+  $senhaTabela = $Tabela['senha'];
+     
+
+}
+if($email == $emailTabela && $senha == $senhaTabela){
+  $this->ValidaDados = array($IdTabela,$emailTabela,$senhaTabela);
+  echo "ok";
+}else{
+  $this->ValidaDados = false;
+ 
 }
         }
     }
-}
+    public function Logar(){
+        if(isset($this->ValidaDados) && $this->ValidaDados == false){
+           echo "Email Ou Senha Inválido";
+         
+        }else{
+           $_SESSION['EmailUsuario'] = $this->ValidaDados['1'];
+           $_SESSION['Id'] = $this->ValidaDados['0'];
+           header('location:logado/logado.php');
+        }
+    }
+} 
 $session = new session();
 $session ->UserEstado();
 $session ->ValidaSession();

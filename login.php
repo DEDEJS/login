@@ -57,7 +57,7 @@ $session ->ValidaSession();
   ?>
  </div>
  <div>
-  <input type="password" name="senha"  placeholder="Sua Senha" id="senha" value="asss55">
+  <input type="password" name="senha"  placeholder="Sua Senha" id="senha" value="">
   <p onclick="return ShowPassword();"  id='button'>Mostrar Senha</p>
   <button>Esqueci A Senha</button>
  </div>
@@ -67,7 +67,8 @@ $session ->ValidaSession();
  </div>
 </form>
 <?php
-$valida -> Logar();
+$valida -> ValidaLogar();
+$valida ->Logar();
 
 ?>
 </body>
