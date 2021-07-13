@@ -1,27 +1,7 @@
 <?php
 ini_set('default_charset','UTF-8');
-
-  class Session{
-      /* Verifica Se O Usuário Esta Logado Ou Não */
-      public function ValidaSession(){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-             // inicia
-          }else{
-           
-          }
-      }
-      public function UserEstado(){
-        $_SESSION['UserEstado'] = "off";
-        if(isset($_SESSION['UserEstado'])){
-           if($_SESSION['UserEstado'] == "on"){
-              echo "Usuário Logado";
-              die();
-           }
-        }
-    }
-  }
-
+include_once("session.php");
+  
 class valida{
   private $Email;
   private $ValidaEmail;
@@ -108,7 +88,7 @@ class valida{
               $Error = fopen("arquivo.txt", "a+");//arquivo de erros do banco de dados
               date_default_timezone_set('America/Sao_Paulo');
 
-$Mensagem = "!!!!!! Error No SQL ". $error->getMessage(). date('d/m/Y H:i')." -----" ;
+$Mensagem = "!!!!!! Error No SQL >>>>>". $error->getMessage()."<< Data >>". date('d/m/Y H:i')." -----" ;
 fwrite($Error,$Mensagem);
 fclose($Error);
           }
@@ -126,7 +106,6 @@ while ($Tabela = $Select->fetch(PDO::FETCH_ASSOC)) {
 }
 if($email == $emailTabela && $senha == $senhaTabela){
   $this->ValidaDados = array($IdTabela,$emailTabela,$senhaTabela);
-  echo "ok";
 }else{
   $this->ValidaDados = false;
  
@@ -134,19 +113,22 @@ if($email == $emailTabela && $senha == $senhaTabela){
         }
     }
     public function Logar(){
-        if(isset($this->ValidaDados) && $this->ValidaDados == false){
-           echo "Email Ou Senha Inválido";
-         
-        }else{
-           $_SESSION['EmailUsuario'] = $this->ValidaDados['1'];
-           $_SESSION['Id'] = $this->ValidaDados['0'];
-           header('location:logado/logado.php');
-        }
+       if(is_array($this->ValidaDados)){
+            $_SESSION['UserEstado'] = "on";
+            $_SESSION['IdUser'] = $this->ValidaDados['0'];
+           echo $_SESSION['EmailUser'] = $this->ValidaDados['1'];
+
+          //  header("location:logado/logado.php");
+       }else{
+        unset($_SESSION['IdUser']);
+        unset($_SESSION['EmailUser']);
+       }
+     
     }
 } 
-$session = new session();
-$session ->UserEstado();
+
 $session ->ValidaSession();
+$session ->UserEstado();
 
 $valida = new valida();
 $valida -> GetEmail();

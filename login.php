@@ -69,7 +69,7 @@ $session ->ValidaSession();
 <?php
 $valida -> ValidaLogar();
 $valida ->Logar();
-
+$session ->UserEstado();
 ?>
 </body>
 </html>
